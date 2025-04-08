@@ -5,10 +5,14 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-        <p><a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
+    <p>
+        Welcome, {{ user.username }} |
+        <a href="{% url 'logout' %}">Logout</a> |
+        <a href="{% url 'edit_profile' %}">Edit My Profile</a>
+    </p>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a></p>
+{% endif %}
     <hr>
     {% block content %}{% endblock %}
 </body>

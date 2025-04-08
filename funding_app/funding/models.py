@@ -53,6 +53,10 @@ class Profile(models.Model):
         ('Admin', 'Admin'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    age = models.PositiveIntegerField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     organization = models.CharField(max_length=255, blank=True, null=True)
     role = models.CharField(max_length=10, choices=USER_ROLES, default='User')
 

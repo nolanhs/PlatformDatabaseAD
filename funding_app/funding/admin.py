@@ -29,13 +29,16 @@ class ProfileAdmin(ModelAdmin):
     warn_unsaved_form = True
     change_form_show_cancel_button = True
 
-    list_display = ("user", "organization", "role")
-    search_fields = ("user__username", "organization")
+    list_display = ("full_name", "email", "phone_number", "age")
+    search_fields = ("full_name", "email", "phone_number", "user__username", "organization")
     list_filter = ("role",)
 
     fieldsets = (
         ("User Information", {
-            "fields": ("user", "organization", "role")
+            "fields": ("user", "full_name", "email", "organization", "role")
+        }),
+        ("Optional Contact Info", {
+            "fields": ("phone_number", "age")
         }),
     )
 
