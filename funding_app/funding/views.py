@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.contrib.auth import login
 from django import forms
+from django.contrib import messages
+
 
 class EditProfileForm(forms.Form):
     full_name = forms.CharField(max_length=255)
@@ -14,8 +16,11 @@ class EditProfileForm(forms.Form):
     organization = forms.CharField(max_length=255, required=False)
 
 def funding_event_list(request):
-    events = FundingEvent.objects.filter(end_date__gte=date.today())  # Only future/open events
-    return render(request, 'funding/event_list.html', {'events': events})
+    events = FundingEvent.objects.all()
+    return render(request, 'funding/event_list.html', {
+        'events': events,
+        'today': date.today()
+    })
 
 def funding_event_detail(request, pk):
     event = get_object_or_404(FundingEvent, pk=pk)
@@ -31,6 +36,7 @@ def apply_for_event(request, pk):
             application.event = event
             application.applicant = request.user
             application.save()
+            messages.success(request, "Your application was submitted successfully.")
             return redirect('application_success')
     else:
         form = ApplicationForm()
@@ -42,6 +48,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, "Account created successfully! Welcome.")
             return redirect('event_list')  # Redirect to your event list
     else:
         form = CustomUserCreationForm()
@@ -59,6 +66,7 @@ def edit_profile_view(request):
             profile.age = form.cleaned_data.get("age")
             profile.organization = form.cleaned_data.get("organization")
             profile.save()
+            messages.success(request, "Your profile has been updated.")
             return redirect('event_list')
     else:
         form = EditProfileForm(initial={

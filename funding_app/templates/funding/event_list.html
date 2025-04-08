@@ -1,13 +1,33 @@
 {% extends 'funding/base.html' %}
 {% block content %}
   <h1>Funding Events</h1>
-  <ul>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for event in events %}
-      <li>
-        <a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a> - {{ event.country }} - {{ event.start_date }}
-      </li>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a>
+            </h5>
+            {% if event.categorization.project_type %}
+              <span class="badge bg-info text-dark">{{ event.categorization.project_type }}</span>
+            {% endif %}
+            {% if event.end_date >= today %}
+              <span class="badge bg-success">Open</span>
+              <p class="mt-2 text-muted"><strong>Days left:</strong> {{ event.end_date|timesince:today }}</p>
+            {% else %}
+              <span class="badge bg-secondary">Closed</span>
+            {% endif %}
+            <p class="card-text mt-2"><strong>Country:</strong> {{ event.country }}</p>
+            <p class="card-text"><strong>Start Date:</strong> {{ event.start_date }}</p>
+          </div>
+          <div class="card-footer text-end">
+            <a href="{% url 'apply' event.pk %}" class="btn btn-sm btn-primary">Apply</a>
+          </div>
+        </div>
+      </div>
     {% empty %}
-      <li>No upcoming funding events.</li>
+      <p>No upcoming funding events.</p>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
