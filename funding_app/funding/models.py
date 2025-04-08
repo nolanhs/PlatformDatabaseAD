@@ -47,7 +47,7 @@ class Categorization(models.Model):
         return f"{self.project_type} - {self.event.name}"
 
 # Renaming the custom user extension to Profile to avoid conflict with Django's built-in User model
-class User(models.Model):
+class Profile(models.Model):
     USER_ROLES = [
         ('User', 'User'),
         ('Admin', 'Admin'),
