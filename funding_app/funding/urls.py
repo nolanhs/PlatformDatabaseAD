@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from .views import signup_view
 
+
 urlpatterns = [
     path('', views.funding_event_list, name='event_list'),
     path('event/<int:pk>/', views.funding_event_detail, name='event_detail'),

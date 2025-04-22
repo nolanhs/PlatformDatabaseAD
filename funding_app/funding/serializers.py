@@ -6,7 +6,7 @@ from .models import FundingEvent, Categorization, Profile, Application
 class FundingEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = FundingEvent
-        fields = '_all_'
+        fields = '__all__'
 
 
 class CategorizationSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class CategorizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Categorization
-        fields = '_all_'
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = '_all_'
+        fields = '__all__'
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -37,4 +37,4 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
-        fields = '_all_'
+        fields = '__all__'

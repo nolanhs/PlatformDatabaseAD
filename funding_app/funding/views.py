@@ -7,11 +7,19 @@ from django.contrib.auth import login
 from django import forms
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-
+from rest_framework import viewsets, permissions
+from django.contrib.auth.models import User
+from .models import FundingEvent, Categorization, Profile, Application
+from .serializers import (
+    FundingEventSerializer,
+    CategorizationSerializer,
+    ProfileSerializer,
+    ApplicationSerializer,
+    UserSerializer,
+)
 
 class EditProfileForm(forms.Form):
     full_name = forms.CharField(max_length=255)
@@ -93,3 +101,33 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "This route is protected!"})
+    
+
+class FundingEventViewSet(viewsets.ModelViewSet):
+    queryset = FundingEvent.objects.all()
+    serializer_class = FundingEventSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CategorizationViewSet(viewsets.ModelViewSet):
+    queryset = Categorization.objects.all()
+    serializer_class = CategorizationSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ApplicationViewSet(viewsets.ModelViewSet):
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
