@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from .views import signup_view
@@ -12,4 +12,5 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('accounts/signup/', signup_view, name='signup'),
     path('accounts/profile/edit/', views.edit_profile_view, name='edit_profile'),
+    path("api/", include("funding.api_urls")),
 ]
