@@ -6,6 +6,11 @@ from datetime import date
 from django.contrib.auth import login
 from django import forms
 from django.contrib import messages
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 
 class EditProfileForm(forms.Form):
@@ -81,3 +86,10 @@ def edit_profile_view(request):
         'form': form,
         'profile': profile
     })
+
+class ProtectedView(APIView):
+    authentication_classes = [  ]  # This specifies that JWT Authentication should be used
+    permission_classes = [IsAuthenticated]       # This specifies that only authenticated users are allowed
+
+    def get(self, request):
+        return Response({"message": "This route is protected!"})
