@@ -1,39 +1,47 @@
 {% extends "funding/base.html" %}
+{% load widget_tweaks %}
 {% block content %}
-<div class="container mt-5">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h1 class="card-title mb-4">Sign Up</h1>
-      <form method="post">
-        {% csrf_token %}
-        {% if form.errors %}
-          <div class="alert alert-danger">
-            <ul class="mb-0">
-              {% for field in form %}
-                {% for error in field.errors %}
-                  <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                {% endfor %}
-              {% endfor %}
-              {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        {% endif %}
+<div class="max-w-xl mx-auto bg-white dark:bg-gray-800 rounded shadow-md p-6">
+  <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Sign Up</h1>
 
-        <p>{{ form.username.label_tag }} {{ form.username }}</p>
-        <p>{{ form.email.label_tag }} {{ form.email }}</p>
-        <p>{{ form.full_name.label_tag }} {{ form.full_name }}</p>
-        <p>{{ form.phone_number.label_tag }} {{ form.phone_number }}</p>
-        <p>{{ form.age.label_tag }} {{ form.age }}</p>
-        <p>{{ form.organization.label_tag }} {{ form.organization }}</p>
-        <p>{{ form.password1.label_tag }} {{ form.password1 }}</p>
-        <p>{{ form.password2.label_tag }} {{ form.password2 }}</p>
+  <form method="post" class="space-y-5">
+    {% csrf_token %}
 
-        <button type="submit" class="btn btn-primary">Register</button>
-      </form>
-      <p class="mt-3">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    {% if form.errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <ul class="list-disc pl-5 text-sm">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- 🔁 Fields -->
+    <div class="flex flex-col space-y-3">
+      {{ form.username.label_tag }} {{ form.username|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.email.label_tag }} {{ form.email|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.full_name.label_tag }} {{ form.full_name|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.phone_number.label_tag }} {{ form.phone_number|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.age.label_tag }} {{ form.age|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.organization.label_tag }} {{ form.organization|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.password1.label_tag }} {{ form.password1|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
+      {{ form.password2.label_tag }} {{ form.password2|add_class:"input input-bordered w-full dark:bg-gray-900 dark:border-gray-700" }}
     </div>
-  </div>
+
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
+      Register
+    </button>
+  </form>
+
+  <p class="text-sm text-center mt-4 text-gray-600 dark:text-gray-300">
+    Already have an account? 
+    <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Log in</a>
+  </p>
 </div>
 {% endblock %}
