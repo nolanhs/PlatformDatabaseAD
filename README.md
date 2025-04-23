@@ -45,7 +45,7 @@ python manage.py createsuperuser
 ```
 
 
-###6. Run the Server
+### 6. Run the Server
 
 ```bash
 python manage.py runserver
@@ -55,7 +55,7 @@ Then visit http://127.0.0.1:8000 in your browser.
 
 ⸻
 
-📁 File Structure Overview
+## 📁 File Structure Overview
 ```bash
 funding_app/
 ├── attachments/               # Uploaded application files
