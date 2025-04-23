@@ -1,18 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import FundingEvent, Application, Profile
-from .forms import ApplicationForm, CustomUserCreationForm
-from django.contrib.auth.decorators import login_required
-from datetime import date
 from django.contrib.auth import login
-from django import forms
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from rest_framework.permissions import IsAuthenticated
+from django import forms
+from django.db.models import Q
+from django.core.mail import send_mail
+from datetime import date
+
+from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth.models import User
-from rest_framework import viewsets, permissions
-from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+
 from .models import FundingEvent, Categorization, Profile, Application
+from .forms import ApplicationForm, CustomUserCreationForm
 from .serializers import (
     FundingEventSerializer,
     CategorizationSerializer,
@@ -20,7 +21,10 @@ from .serializers import (
     ApplicationSerializer,
     UserSerializer,
 )
+from django.contrib.auth.models import User
 
+
+# ----------------- Forms ------------------
 class EditProfileForm(forms.Form):
     full_name = forms.CharField(max_length=255)
     email = forms.EmailField()
@@ -28,16 +32,27 @@ class EditProfileForm(forms.Form):
     age = forms.IntegerField(required=False)
     organization = forms.CharField(max_length=255, required=False)
 
+
+# ----------------- Views ------------------
+
 def funding_event_list(request):
+    query = request.GET.get('q')
+    country = request.GET.get('country')
     events = FundingEvent.objects.all()
+    if query:
+        events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    if country:
+        events = events.filter(country__iexact=country)
     return render(request, 'funding/event_list.html', {
         'events': events,
         'today': date.today()
     })
 
+
 def funding_event_detail(request, pk):
     event = get_object_or_404(FundingEvent, pk=pk)
     return render(request, 'funding/event_detail.html', {'event': event})
+
 
 @login_required
 def apply_for_event(request, pk):
@@ -49,11 +64,22 @@ def apply_for_event(request, pk):
             application.event = event
             application.applicant = request.user
             application.save()
+
+            # Send confirmation email
+            send_mail(
+                subject=f"Application Submitted: {event.name}",
+                message=f"Hi {request.user.username}, your application for '{event.name}' was submitted successfully.",
+                from_email='no-reply@fundingplatform.com',
+                recipient_list=[request.user.email],
+                fail_silently=True,
+            )
+
             messages.success(request, "Your application was submitted successfully.")
             return redirect('application_success')
     else:
         form = ApplicationForm()
     return render(request, 'funding/apply.html', {'form': form, 'event': event})
+
 
 def signup_view(request):
     if request.method == "POST":
@@ -62,10 +88,11 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Account created successfully! Welcome.")
-            return redirect('event_list')  # Redirect to your event list
+            return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
+
 
 @login_required
 def edit_profile_view(request):
@@ -95,13 +122,34 @@ def edit_profile_view(request):
         'profile': profile
     })
 
+
+@login_required
+def dashboard_view(request):
+    user_profile = request.user.profile
+    recent_apps = Application.objects.filter(applicant=request.user).order_by('-submitted_at')[:5]
+    total_apps = Application.objects.filter(applicant=request.user).count()
+    return render(request, 'funding/dashboard.html', {
+        'profile': user_profile,
+        'recent_apps': recent_apps,
+        'total_apps': total_apps,
+    })
+
+
+@login_required
+def application_history(request):
+    apps = Application.objects.filter(applicant=request.user)
+    return render(request, 'funding/my_applications.html', {'apps': apps})
+
+
+# ----------------- API Views ------------------
+
 class ProtectedView(APIView):
-    authentication_classes = [  ]  # This specifies that JWT Authentication should be used
-    permission_classes = [IsAuthenticated]       # This specifies that only authenticated users are allowed
+    authentication_classes = []  # Fill in if using custom JWT setup
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         return Response({"message": "This route is protected!"})
-    
+
 
 class FundingEventViewSet(viewsets.ModelViewSet):
     queryset = FundingEvent.objects.all()
