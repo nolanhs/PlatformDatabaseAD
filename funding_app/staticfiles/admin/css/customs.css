@@ -1,0 +1,65 @@
+/* === Base Light Theme === */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f3e8ff; /* Soft light purple */
+  color: #1a202c; /* Slate gray */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === Dark Mode Override === */
+html.dark body {
+  background-color: #1e1e1e !important; /* Soft dark gray */
+  color: #f9fafb !important; /* Light text */
+}
+
+/* === Navbar Styling === */
+.navbar {
+  background-color: #ffffff !important;
+  transition: background-color 0.3s ease;
+}
+
+html.dark .navbar {
+  background-color: #2d3748 !important; /* Tailwind dark gray */
+}
+
+/* === Card Elements === */
+.card {
+  border-radius: 10px;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+html.dark .card {
+  background-color: #2a2e3c; /* Subtle dark blue-gray */
+}
+
+/* === Informational Alerts === */
+.alert-info {
+  background-color: #e0f4ff;
+  color: #0c5460;
+  border-color: #b8e2f2;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark .alert-info {
+  background-color: #374151; /* Slate gray */
+  color: #edf2f7; /* Light text */
+  border-color: #4a5568; /* Dark border */
+}
+
+/* === Buttons & Forms (optional additions) === */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #2d3748;
+  color: #f9fafb;
+  border-color: #4a5568;
+}
+
+html.dark a:hover {
+  color: #63b3ed; /* Tailwind blue-400 */
+}
+
+html.dark .bg-white {
+  background-color: #1f2937 !important; /* Override Tailwind white */
+}
