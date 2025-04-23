@@ -6,6 +6,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
 /* === Dark Mode Override === */
 html.dark body {
   background-color: #1e1e1e !important; /* Soft dark gray */
@@ -14,7 +15,7 @@ html.dark body {
 
 /* === Navbar Styling === */
 .navbar {
-  background-color: #ffffff !important;
+  background-color: #868181 !important;
   transition: background-color 0.3s ease;
 }
 
@@ -25,7 +26,7 @@ html.dark .navbar {
 /* === Card Elements === */
 .card {
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #040404;
   transition: background-color 0.3s ease;
 }
 
