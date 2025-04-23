@@ -16,29 +16,36 @@ cd funding_app
 ```
 
 
-2. Create a Virtual Environment
+### 2. Create a Virtual Environment
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-3. Install Dependencies
+
+### 3. Install Dependencies
    
 ```bash
 pip install -r requirements.txt
 ```
-4. Apply Migrations
+
+
+### 4. Apply Migrations
 
 ```bash
 python manage.py migrate
 ```
-5. Create a Superuser (optional)
+
+
+### 5. Create a Superuser (optional)
 
 ```bash
 python manage.py createsuperuser
 ```
-6. Run the Server
+
+
+###6. Run the Server
 
 ```bash
 python manage.py runserver
