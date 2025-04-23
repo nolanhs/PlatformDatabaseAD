@@ -56,7 +56,7 @@ Then visit http://127.0.0.1:8000 in your browser.
 ⸻
 
 📁 File Structure Overview
-
+```bash
 funding_app/
 │
 ├── funding/                 # Django app
@@ -65,4 +65,4 @@ funding_app/
 ├── requirements.txt
 ├── README.md
 └── manage.py
-
+```
