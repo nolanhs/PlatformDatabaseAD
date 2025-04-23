@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "unfold",
     "django.contrib.admin",
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     "funding",
     "rest_framework",
     "rest_framework_simplejwt",
+    "widget_tweaks",  # for styling forms
 ]
 
 MIDDLEWARE = [
@@ -146,3 +146,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES':('Bearer',),
 }
+
+# Email backend for development
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
