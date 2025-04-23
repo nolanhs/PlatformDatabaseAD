@@ -58,11 +58,12 @@ Then visit http://127.0.0.1:8000 in your browser.
 📁 File Structure Overview
 ```bash
 funding_app/
-│
-├── funding/                 # Django app
-├── templates/               # HTML files
-├── static/                  # Custom CSS & JS
-├── requirements.txt
-├── README.md
-└── manage.py
+├── attachments/               # Uploaded application files
+├── funding/                   # Main Django app: models, views, forms, templates
+├── funding_platform/          # Django project settings and URLs
+├── staticfiles/               # Static assets (custom.css, icons, JS)
+├── templates/                 # HTML templates (base.html, registration/, funding/)
+├── db.sqlite3                 # Default SQLite database
+├── manage.py                  # Django CLI utility
+├── requirements.txt           # Python dependencies
 ```
