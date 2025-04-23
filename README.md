@@ -9,9 +9,8 @@ A Django-based platform where users can discover and apply to funding opportunit
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
-
 ```bash
-git clone <your-repo-url>
+git clone <[your-repo-url](https://github.com/nolanhs/PlatformDatabaseAD/tree/main/funding_app)>
 cd funding_app
 ```
 
