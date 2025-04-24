@@ -52,7 +52,7 @@ class ApplicationAdmin(ModelAdmin):
     list_display = ("event", "applicant", "submitted_at", "status")
     search_fields = ("event__name", "applicant__username", "status")
     list_filter = ("status", "submitted_at")
-    readonly_fields = ("submitted_at", "status")
+    readonly_fields = ("submitted_at",)
 
     fieldsets = (
         ("Application Details", {
