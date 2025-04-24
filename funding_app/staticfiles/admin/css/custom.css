@@ -64,3 +64,20 @@ html.dark a:hover {
 html.dark .bg-white {
   background-color: #1f2937 !important; /* Override Tailwind white */
 }
+
+/* Welcome Banner (Light Mode) */
+.welcome-banner {
+  background-color: #dbeafe; /* light blue */
+  color: #1e40af; /* dark blue text */
+  border: 1px solid #93c5fd;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Welcome Banner (Dark Mode) */
+html.dark .welcome-banner {
+  background-color: #1f2937; /* dark grayish blue */
+  color: #e0f2fe; /* light text */
+  border-color: #334155;
+}
