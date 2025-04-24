@@ -1,11 +1,20 @@
 {% extends 'funding/base.html' %}
 {% block content %}
-<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow rounded p-6">
+<div class="max-w-2xl bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow rounded p-6">
   <h1 class="text-2xl font-bold mb-4">{{ event.name }}</h1>
 
   <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Country:</strong> {{ event.country }}</p>
   <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Language:</strong> {{ event.language }}</p>
-  <p class="mb-4"><strong class="text-gray-700 dark:text-gray-200">Description:</strong> {{ event.description }}</p>
+  <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Description:</strong> {{ event.description }}</p>
+  <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Host:</strong> {{ event.host }}</p>
+  <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Funder:</strong> {{ event.funder }}</p>
+  <p class="mb-2"><strong class="text-gray-700 dark:text-gray-200">Start Date:</strong> {{ event.start_date }}</p>
+  <p class="mb-4"><strong class="text-gray-700 dark:text-gray-200">End Date:</strong> {{ event.end_date }}</p>
+  {% if event.image %}
+    <div class="mt-6">
+      <img src="{{ event.image.url }}" alt="Event image" class="w-full rounded shadow">
+    </div>
+  {% endif %}
 
   {% if user.is_authenticated %}
     <a href="{% url 'apply' event.pk %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded transition">

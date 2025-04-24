@@ -1,6 +1,7 @@
 {% extends 'funding/base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 rounded shadow">
+<div class="max-w-2xl bg-white dark:bg-gray-800 p-6 rounded shadow">
   <h1 class="text-2xl font-bold mb-4">Apply for {{ event.name }}</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -18,8 +19,36 @@
         </ul>
       </div>
     {% endif %}
-    <div class="mb-4">{{ form.cover_letter.label_tag }} {{ form.cover_letter }}</div>
-    <div class="mb-4">{{ form.attachment.label_tag }} {{ form.attachment }}</div>
+    <div class="mb-4">
+      <label class="block font-medium mb-1" for="{{ form.full_name.id_for_label }}">
+        {{ form.full_name.label }}:
+      </label>
+      {{ form.full_name|add_class:"w-full border border-gray-300 rounded px-3 py-2" }}
+    </div>
+    <div class="mb-4">
+      <label class="block font-medium mb-1" for="{{ form.email.id_for_label }}">
+        {{ form.email.label }}:
+      </label>
+      {{ form.email|add_class:"w-full border border-gray-300 rounded px-3 py-2" }}
+    </div>
+    <div class="mb-4">
+      <label class="block font-medium mb-1" for="{{ form.phone.id_for_label }}">
+        {{ form.phone.label }}:
+      </label>
+      {{ form.phone|add_class:"w-full border border-gray-300 rounded px-3 py-2" }}
+    </div>
+        <div class="mb-4">
+      <label class="block font-medium mb-1" for="{{ form.cover_letter.id_for_label }}">
+        {{ form.cover_letter.label }}:
+      </label>
+      {{ form.cover_letter|add_class:"w-full border border-gray-300 rounded px-3 py-2" }}
+    </div>
+    <div class="mb-4">
+      <label class="block font-medium mb-1" for="{{ form.attachment.id_for_label }}">
+        {{ form.attachment.label }}:
+      </label>
+      {{ form.attachment|add_class:"w-full border border-gray-300 rounded px-3 py-2" }}
+    </div>
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit Application</button>
   </form>
 </div>

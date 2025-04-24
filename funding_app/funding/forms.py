@@ -6,8 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = ['cover_letter', 'attachment']
-
+        fields = ['full_name', 'email', 'phone', 'cover_letter', 'attachment']
+        
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     full_name = forms.CharField(max_length=255, required=True)

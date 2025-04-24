@@ -22,7 +22,7 @@
 <!-- 📦 Event Cards -->
 <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
   {% for event in events %}
-    <div class="bg-white shadow rounded-lg p-5 flex flex-col justify-between">
+    <div class="bg-white shadow rounded-lg border border-gray-200 p-6 flex flex-col justify-between">
       <div>
         <h3 class="text-lg font-bold text-blue-700 hover:underline">
           <a href="{% url 'event_detail' event.pk %}">{{ event.name }}</a>
@@ -40,7 +40,7 @@
           <span class="inline-block bg-gray-200 text-gray-600 text-xs font-semibold ml-2 px-2 py-1 rounded">Closed</span>
         {% endif %}
 
-        <p class="text-sm text-gray-600 mt-4"><strong>Days left:</strong> {{ event.end_date|timesince:today }}</p>
+        <p class="text-sm text-gray-600 mt-4"><strong>Days left:</strong> {{ event.days_left }}</p>
         <p class="text-sm text-gray-600"><strong>Country:</strong> {{ event.country }}</p>
         <p class="text-sm text-gray-600"><strong>Start Date:</strong> {{ event.start_date }}</p>
       </div>

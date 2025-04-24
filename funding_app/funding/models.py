@@ -75,6 +75,9 @@ class Application(models.Model):
         ('rejected', 'Rejected'),
     ]
     status = models.CharField(max_length=20, choices=APPLICATION_STATUS_CHOICES, default='pending')
+    full_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     cover_letter = models.TextField(blank=True, null=True)
     attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
 

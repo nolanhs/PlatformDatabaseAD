@@ -39,6 +39,9 @@ def funding_event_list(request):
     query = request.GET.get('q')
     country = request.GET.get('country')
     events = FundingEvent.objects.all()
+    today = date.today()
+    for event in events:
+        event.days_left = (event.end_date - today).days if event.end_date and event.end_date >= today else 0
     if query:
         events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
     if country:

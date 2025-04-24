@@ -18,7 +18,7 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'custom.css' %}">
 </head>
-<body class="text-gray-800 dark:text-white bg-[#f3e8ff] dark:bg-gray-900 min-h-screen transition-colors">
+<body class="flex flex-col min-h-screen text-gray-800 dark:text-white bg-white dark:bg-gray-900 transition-colors">
 
     <!-- 🌐 Navbar -->
     <nav class="bg-transparent px-6 py-4 flex justify-between items-center">
@@ -61,8 +61,7 @@
     </nav>
 
     <!-- 🧩 Page Content -->
-    <main class="max-w-6xl mx-auto py-10 px-6 bg-[#f3e8ff] dark:bg-gray-900 rounded shadow transition-colors">
-        {% if messages %}
+    <main class="flex-grow py-10 px-6 bg-white dark:bg-gray-900 rounded shadow transition-colors">        {% if messages %}
             {% for message in messages %}
                 <div class="rounded p-4 mb-4 text-white 
                     {% if message.tags == 'success' %}bg-green-500
